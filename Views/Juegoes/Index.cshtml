@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PIA_EQJOSEPE.Models.Juego>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Creador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreJuego)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modalidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>Acciones</th> <!-- Título de la columna para las acciones -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreJuego)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modalidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    <!-- Dropdown de acciones con íconos -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-h"></i> <!-- Icono de tres puntos -->
+                        </button>
+                        <div class="dropdown-menu">
+                            <!-- Botón Editar -->
+                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IdJuego">
+                                <i class="fas fa-pencil-alt"></i> Editar <!-- Icono de lápiz -->
+                            </a>
+                            <!-- Botón Detalles -->
+                            <a class="dropdown-item" asp-action="Details" asp-route-id="@item.IdJuego">
+                                <i class="fas fa-eye"></i> Detalles <!-- Icono de ojo -->
+                            </a>
+                            <!-- Botón Eliminar -->
+                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.IdJuego">
+                                <i class="fas fa-trash"></i> Eliminar <!-- Icono de papelera -->
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
