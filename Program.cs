@@ -1,35 +1,33 @@
 using Microsoft.EntityFrameworkCore;
 using PIA_EQJOSEPE.Models;
+using Microsoft.EntityFrameworkCore;
+using BD_Juegos.Models; // ? Usa SOLO donde esté tu BdJuegosContext
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Servicios MVC
 builder.Services.AddControllersWithViews();
 
+// Conexión a SQL Server (usa tu cadena llamada "conexion")
 builder.Services.AddDbContext<BdJuegosContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("conexion") ?? throw new InvalidOperationException("Connection string 'Cartelera5l1Context' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuración pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
-
 app.UseAuthorization();
-
-app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
