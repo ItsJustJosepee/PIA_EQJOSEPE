@@ -7,7 +7,7 @@
 <h2>Usuarios Registrados</h2>
 
 <p>
-    <a href="/Usuarios/Crear" class="btn btn-primary">Agregar Usuario</a>
+    <a href="/Usuarios/Create" class="btn btn-primary">Agregar Usuario</a>
 </p>
 
 <table class="table table-bordered table-hover">
@@ -25,18 +25,24 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Id_usuario</td>
-                <td>@item.Nombre_usu</td>
+                <td>@item.IdUsuario</td>
+                <td>@item.NombreUsu</td>
                 <td>@item.Email</td>
-                <td>@item.Cumpleaños.ToShortDateString()</td>
+
                 <td>
-                    <a href="/Usuarios/Editar/@item.Id_usuario" class="btn btn-warning">Editar</a>
-                    <a href="/Usuarios/Eliminar/@item.Id_usuario" class="btn btn-danger"
+                    @(item.Cumpleaños.HasValue
+                                    ? item.Cumpleaños.Value.ToString("d")
+                                    : "—")
+            </td>
+
+                <td>
+                    <a href="/Usuarios/Edit/@item.IdUsuario" class="btn btn-warning">Editar</a>
+                    <a href="/Usuarios/Delete/@item.IdUsuario" class="btn btn-danger"
                        onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">
                         Eliminar
                     </a>
                 </td>
             </tr>
-        }
+                }
     </tbody>
 </table>
